@@ -1,0 +1,25 @@
+server {
+    listen 80;
+    server_name kcr.test *.kcr.test;
+
+    root "C:/laragon/www/kcr/public/";
+    index index.php;
+
+    location / {
+        try_files $uri $uri/ /index.php?url=$uri;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass php_upstream;		
+        #fastcgi_pass unix:/run/php/php7.0-fpm.sock;
+    }
+	
+
+    location ~ /\.ht {
+        deny all;
+    }
+}
+# This file is auto-generated.
+# If you want Laragon to respect your changes, just remove the [auto.] prefix
+# If you want to use SSL, enable it at: Menu > Nginx > SSL > Enabled
